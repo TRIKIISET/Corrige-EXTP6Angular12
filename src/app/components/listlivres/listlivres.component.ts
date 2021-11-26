@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Livre } from 'src/app/model/livre';
+import { LivreService } from 'src/app/services/livre.service';
 
 @Component({
   selector: 'app-listlivres',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListlivresComponent implements OnInit {
 
-  constructor() { }
+  tab:Livre[]=[];
+
+  constructor(private livreService:LivreService) { }
 
   ngOnInit(): void {
+    this.tab = this.livreService.getLivres();
   }
+
+  onAffiche(categ:string){
+    this.tab = this.livreService.getLivresByCategorie(categ);
+  }
+
+  onAfficheAll(){
+    this.tab = this.livreService.getLivres();
+  }
+
 
 }
